@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172d37">
+  <meta name="description" content="A public teaching research atlas for supply chain resilience, reverse stress testing, and a High Tech / ISV / SI learning scenario.">
+  <title>Resilience Atlas | Public teaching edition</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="public-sources.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside class="sidebar" aria-label="Main navigation">
+    <a class="brand" href="#overview" aria-label="Resilience Atlas home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>Resilience<span class="brand-light">Atlas</span></span>
+    </a>
+    <div class="workspace-label">PUBLIC TEACHING EDITION</div>
+    <div class="workspace-card"><span class="workspace-dot"></span><div>Supply chain resilience<small>High Tech · ISV · SI</small></div></div>
+    <div class="nav-caption">EXPLORE THE RESEARCH</div>
+    <nav id="navigation">
+      <a href="#overview" data-nav="overview"><span class="nav-icon">◈</span>Start here<span class="nav-key">01</span></a>
+      <a href="#concepts" data-nav="concepts"><span class="nav-icon">⌘</span>Concept atlas<span class="nav-key">02</span></a>
+      <a href="#lab" data-nav="lab"><span class="nav-icon">⇄</span>Reverse stress lab<span class="nav-key">03</span></a>
+      <a href="#evidence" data-nav="evidence"><span class="nav-icon">▤</span>Evidence & cases<span class="nav-key">04</span></a>
+      <a href="#engineering" data-nav="engineering"><span class="nav-icon">◇</span>Co-engineering<span class="nav-key">05</span></a>
+      <a href="#sources" data-nav="sources"><span class="nav-icon">▧</span>Source library<span class="nav-key">06</span></a>
+    </nav>
+    <a class="call-nav" href="#brief"><span>◎</span><div>Teaching brief<small>The essentials, one screen away</small></div><span>↗</span></a>
+    <div class="sidebar-bottom">
+      <span class="local-indicator"></span><strong>Local-first. Source-grounded.</strong>
+      <p>No uploads, external AI, or tracking.<br>Teaching material—not a validated product.</p>
+      <span class="edition">NOV 2026 · RESEARCH EDITION</span>
+    </div>
+  </aside>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="mobile-menu icon-button" id="menu-button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <div class="breadcrumb">RESEARCH / <span id="breadcrumb">OVERVIEW</span></div>
+      <div class="search-wrap">
+        <label class="sr-only" for="global-search">Search concepts and teaching source notes</label>
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="global-search" type="search" placeholder="Find an idea, claim, or source…" autocomplete="off" aria-controls="search-results" aria-expanded="false">
+        <kbd>/</kbd>
+        <section id="search-results" class="search-results" aria-label="Search results" hidden></section>
+      </div>
+      <a class="button button-dark top-brief" href="#brief">Teaching brief <span>↗</span></a>
+    </header>
+    <main id="main" tabindex="-1"></main>
+    <footer class="site-footer"><span>Public teaching synthesis. Research attribution retained; scenario identities anonymized.</span><a href="#sources">Research & teaching notes ↗</a></footer>
+  </div>
+  <dialog id="detail-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-toolbar"><span id="dialog-eyebrow">RESEARCH DETAIL</span><button class="icon-button" id="close-dialog" aria-label="Close detail">✕</button></div>
+    <div id="dialog-content"></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript><div class="noscript">This interactive teaching atlas needs JavaScript. Enable it to explore the concepts and attributed research notes.</div></noscript>
+</body>
+</html>

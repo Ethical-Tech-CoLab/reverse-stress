@@ -1,0 +1,15 @@
+{
+  "name": "resilience-atlas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public teaching atlas for supply chain resilience and a High Tech / ISV / SI learning scenario",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node tools/build-public.js",
+    "test": "node --test tests/*.test.js",
+    "test:browser": "node tests/browser-check.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

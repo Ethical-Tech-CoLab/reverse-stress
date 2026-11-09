@@ -1,0 +1,24 @@
+# Full-text research and protected originals remain local.
+/sources.js
+/source-text/
+/dist/
+/tools/extract_sources.py
+/tools/extract_office.ps1
+/tools/requirements.txt
+*.pdf
+*.docx
+*.pptx
+
+# Dependencies, credentials, local notes, and test artifacts.
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+playwright-report/
+test-results/
+atlas-*.png
+Resilience-Atlas-Brief-*.txt
