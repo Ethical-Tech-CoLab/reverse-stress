@@ -41,6 +41,30 @@ async function main() {
     async function noOverflow(label) {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${label} overflows horizontally`);
     }
+    async function mapLabelsFit(label) {
+      const measurements=await page.locator('[data-map-node]').evaluateAll(nodes=>nodes.map(node=>{
+        const bounds=node.querySelector('rect').getBoundingClientRect();
+        const span=node.querySelector('.map-node-label span');
+        const text=span.getBoundingClientRect();
+        const range=document.createRange();
+        range.selectNodeContents(span);
+        const lines=[...range.getClientRects()];
+        return {
+          id:node.dataset.mapNode,
+          lines:lines.length,
+          contained:lines.every(line=>line.left>=bounds.left && line.right<=bounds.right && line.top>=bounds.top && line.bottom<=bounds.bottom),
+          horizontallyCentered:lines.every(line=>Math.abs((line.left+line.right-bounds.left-bounds.right)/2)<=1),
+          verticallyCentered:Math.abs((text.top+text.bottom-bounds.top-bounds.bottom)/2)<=1
+        };
+      }));
+      assert.equal(measurements.length, 11);
+      for (const m of measurements) {
+        assert.ok(m.contained, `${label}: ${m.id} text spills outside its node`);
+        assert.ok(m.horizontallyCentered, `${label}: ${m.id} lines are not centered`);
+        assert.ok(m.verticallyCentered, `${label}: ${m.id} text is not vertically centered`);
+        if (['validation','mcda'].includes(m.id)) assert.ok(m.lines>=2, `${label}: ${m.id} should wrap`);
+      }
+    }
     await route('overview');
     assert.equal(await page.locator('.idea-card').count(), 3);
     await noOverflow('desktop overview');
@@ -64,6 +88,13 @@ async function main() {
 
     await route('concepts');
     assert.equal(await page.locator('.concept-card').count(), 35);
+    await mapLabelsFit('desktop');
+    for (const id of ['validation','mcda']) {
+      await page.locator(`[data-map-node="${id}"]`).click();
+      assert.equal(await page.locator(`[data-map-node="${id}"]`).getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator(`[data-map-node="${id}"] .map-node-label`).evaluate(el=>getComputedStyle(el).color), 'rgb(255, 255, 255)');
+    }
+    await page.locator('.map-layout').screenshot({path:path.join(screenshots,'atlas-wrapped-map.png')});
     await page.locator('[data-map-node="resilience"]').press('Enter');
     assert.equal(await page.locator('#map-detail h3').innerText(), 'Resilience');
     await page.locator('[data-group="Performance"]').click();
@@ -203,6 +234,7 @@ async function main() {
     for (const name of ['overview', 'concepts', 'lab', 'evidence', 'engineering', 'sources', 'brief']) {
       await route(name);
       await noOverflow(`mobile ${name}`);
+      if (name==='concepts') await mapLabelsFit('390px');
     }
     await page.locator('#menu-button').click();
     assert.equal(await page.locator('#menu-button').getAttribute('aria-expanded'), 'true');
@@ -220,6 +252,7 @@ async function main() {
       for (const name of ['overview', 'concepts', 'lab', 'evidence', 'engineering', 'sources', 'brief']) {
         await route(name);
         await noOverflow(`${width}px ${name}`);
+        if (name==='concepts') await mapLabelsFit(`${width}px`);
       }
     }
     console.log('PASS: all seven routes at 320px, 768px, and 1024px');
