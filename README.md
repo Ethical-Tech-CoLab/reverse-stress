@@ -21,6 +21,11 @@ Scenario personnel are described by responsibility, not by name. Real research a
 - No installation, API keys, source documents, external AI, tracking, or network assets are needed to run or build the teaching site.
 - Preparing the public edition does not deploy it, push a commit, or change the repository's visibility.
 
+## GitHub Pages
+
+The published site is https://ethical-tech-colab.github.io/reverse-stress/.
+The `Deploy GitHub Pages` workflow builds and publishes only the allowlisted `dist` folder on pushes to `main`, or when run manually from GitHub Actions. Repository Pages settings must use **GitHub Actions** as the deployment source.
+
 ## Study features
 
 - **Teaching brief:** an opening explanation, six core distinctions, ten discussion questions, pinned concepts, learner notes, and export / print.
